@@ -5,7 +5,8 @@ import json
 class DataFetcher:
     def __init__(self):
         try:
-            config = yaml.safe_load(open("./config.yml"))
+            # config = yaml.safe_load(open("./config.yml"))
+            config = yaml.safe_load(open("./app/config.yml"))
             self.fetch_interval = config['fetch_interval']
             self.url_symbols_names = config['url_symbols_names']
             self.url_symbols_price = config['url_symbols_price']

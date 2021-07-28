@@ -14,5 +14,17 @@ services:
             - "6379:6379"
         networks:
             - main
+
+    db:
+        image: mongo:latest
+        hostname: test_mongodb
+        environment:
+            MONGO_INITDB_DATABASE: currencies_db
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+        volumes:
+            - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+        ports:
+            - 27017:27017
 networks:
     main:
