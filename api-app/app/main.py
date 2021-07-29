@@ -20,6 +20,5 @@ async def update_data(request: Request):
     print(js)
     currency_list.currencies = js
 
-
 if __name__ == '__main__':
     uvicorn.run(app, port=PORT, host=HOST)

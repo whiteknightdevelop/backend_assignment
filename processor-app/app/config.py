@@ -2,13 +2,11 @@ import yaml
 
 class Config:
     def __init__(self):
-            # config = yaml.safe_load(open("../../config.yml"))
             config = yaml.safe_load(open("./app/config.yml"))
             self.fetch_interval = config['fetch_interval']
             self.url_symbols_names = config['url_symbols_names']
             self.url_symbols_price = config['url_symbols_price']
             self.symbols_watched = config['symbols_watched']
-            # self.currencies_symbols_names = {}
             self.watched_currencies = {}
 
     def get_fetch_interval(self):

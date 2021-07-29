@@ -11,7 +11,6 @@ config = Config()
 repository = Repository()
 alerts = AlertsMonitor(config)
 
-
 while True:
     db_data = repository.fetch_db()
     alerts.process(db_data)

@@ -7,7 +7,6 @@ ENV KAFKA_VERSION 2.8.0
 ENV SCALA_VERSION 2.13 
 
 RUN  mkdir /tmp/kafka && \
-    # curl "https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
     curl "https://apache.mivzakim.net/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
     -o /tmp/kafka/kafka.tgz && \
     mkdir /kafka && cd /kafka && \

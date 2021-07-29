@@ -30,40 +30,6 @@ services:
             - "6165:6165"
         networks:
             - main
-    # zookeeper:
-    #     container_name: zookeeper
-    #     image: zookeeper
-    #     build:
-    #         context: ./zookeeper
-    #     volumes:
-    #         - ./config/zookeeper.properties:/kafka/config/zookeeper.properties
-    # kafka:
-    #     container_name: kafka
-    #     image: bitnami/kafka
-    #     build: 
-    #         context: .
-    #     volumes:
-    #         - ./config/server.properties:/kafka/config/server.properties
-    #         - ./data/kafka/:/tmp/kafka-logs/
-    # kafka-producer:
-    #     container_name: kafka-producer
-    #     image: bitnami/kafka
-    #     build: 
-    #         context: .
-    #     working_dir: /kafka
-    #     entrypoint: /bin/bash
-    #     stdin_open: true
-    #     tty: true
-    # kafka-consumer:
-    #     container_name: kafka-consumer
-    #     image: bitnami/kafka
-    #     build: 
-    #         context: .
-    #     working_dir: /kafka
-    #     entrypoint: /bin/bash
-    #     stdin_open: true
-    #     tty: true
-
     mongodb:
         image: mongo:latest
         container_name: mongodb

@@ -21,20 +21,9 @@ class DataFetcher:
     def get_watched_currencies(self):
         return self.conf.watched_currencies
 
-    # def get_symbols_names(self):
-    #     url = self.get_url_symbols_names()
-    #     req = requests.get(url).json()
-    #     symbols = self.symbols_watched.split(',')
-    #     for symbol in symbols:
-    #         self.currencies_symbols_names[symbol] = req[symbol]
-
-    #     print(self.currencies_symbols_names)
-    #     return self.currencies_symbols_names
-
     def get_symbols_price(self):
         url = self.get_url_symbols_price()
         req = requests.get(url).json()
-        # symbols = self.get_symbols_watched().split(',')
         symbols = self.get_symbols_watched()
         watched_currencies = self.get_watched_currencies()
         for symbol in symbols:

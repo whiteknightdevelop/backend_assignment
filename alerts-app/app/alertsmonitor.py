@@ -24,7 +24,6 @@ class AlertsMonitor:
                 print('append to list')
                 fullname = self.get_symbol_fullname(symbol)
                 self.alert_list.append(fullname)
-                # print("({}) = ({})".format(symbol, value))
         self.dispatch_alert()
 
 

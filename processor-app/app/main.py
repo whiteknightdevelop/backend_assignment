@@ -5,7 +5,6 @@ import requests
 import time
 import json  
 
-# API = 'http://host.docker.internal:8000/update-data/'
 API = 'http://publicapi:8000/update-data/'
 
 config = Config()
@@ -17,7 +16,6 @@ while True:
     res = requests.post(API, json = symbols_price).json()
     print(res)
     repository.update_db(symbols_price)
-
     time.sleep(config.get_fetch_interval())
 
 

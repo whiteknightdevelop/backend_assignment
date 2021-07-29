@@ -2,17 +2,15 @@ from pymongo import MongoClient
 from bson.json_util import dumps
 import json
 
-# DOMAIN = 'localhost'
 DOMAIN = 'mongodb'
 PORT = 27017
 
 class Repository:
 
     def __init__(self):
-        # client = MongoClient(DOMAIN, PORT)
         client = MongoClient(
             host = [ str(DOMAIN) + ":" + str(PORT) ],
-            serverSelectionTimeoutMS = 3000, # 3 second timeout
+            serverSelectionTimeoutMS = 3000,
             username = "root",
             password = "1234",
         )
@@ -24,5 +22,4 @@ class Repository:
 
     def fetch_db(self):
         print('fetch_db')
-        # currencies = [{"symbol": item["id"], "name": item["name"]} for item in self.collection.find()]
         return dumps(self.collection.find())
