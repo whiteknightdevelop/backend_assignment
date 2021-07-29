@@ -1,13 +1,11 @@
 url_symbols_names: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
 url_symbols_price: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json"
-symbols_watched: ils,usd,eur,aoa
-thresholds: 3.757,1.19,1,757
-symbols_watched2:
+symbols_watched:
   - ils
   - usd
   - eur
   - aoa
-thresholds2:
+thresholds:
   - 3.757
   - 1.19
   - 1

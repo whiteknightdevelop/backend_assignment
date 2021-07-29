@@ -36,19 +36,19 @@ class AlertsMonitor:
             return False
 
     def get_symbol_threshold(self, symbol):
-        symbols_watched = self.conf.get_symbols_watched2()
-        symbols_thresholds = self.conf.get_symbols_thresholds2()
+        symbols_watched = self.conf.get_symbols_watched()
+        symbols_thresholds = self.conf.get_symbols_thresholds()
 
         for idx, val in enumerate(symbols_watched):
             if symbols_watched[idx] == symbol:
                 return symbols_thresholds[idx]
 
-    def dispatch_alert(self):
-        #if list not empty dispatch alert
-        if self.alert_list:
-            print('dispatch_alert')
-
     def get_symbol_fullname(self, symbol):
         url = self.conf.get_url_symbols_names()
         req = requests.get(url).json()
         return req[symbol]
+
+    def dispatch_alert(self):
+        #if list not empty dispatch alert
+        if self.alert_list:
+            print('dispatch_alert')

@@ -34,7 +34,8 @@ class DataFetcher:
     def get_symbols_price(self):
         url = self.get_url_symbols_price()
         req = requests.get(url).json()
-        symbols = self.get_symbols_watched().split(',')
+        # symbols = self.get_symbols_watched().split(',')
+        symbols = self.get_symbols_watched()
         watched_currencies = self.get_watched_currencies()
         for symbol in symbols:
             watched_currencies[symbol] = req['eur'][symbol]
