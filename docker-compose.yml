@@ -1,18 +1,10 @@
 version: "3.9"
 services:
-    # publicapi:
-    #     build: ./api-app
-    #     image: python-api-app
-    #     ports:
-    #         - "8000:8000"
-    #     networks:
-    #         - main
     publicapi:
         container_name: publicapi
         build:
             context: ./
             dockerfile: ./api-app/Dockerfile
-        # build: ./processor-app
         image: python-api-app
         ports:
             - "8000:8000"
@@ -23,14 +15,11 @@ services:
         build:
             context: ./
             dockerfile: ./processor-app/Dockerfile
-        # build: ./processor-app
         image: python-processor-app
         ports:
             - "6379:6379"
         networks:
             - main
-        # volumes:
-        #     - myapp:/config
     alerts:
         container_name: alerts
         build:
@@ -41,21 +30,39 @@ services:
             - "6165:6165"
         networks:
             - main
-
-
-    # db:
-    #     container_name: mongodb
-    #     image: mongo:latest
-    #     hostname: main_mongodb
-    #     environment:
-    #         MONGO_INITDB_DATABASE: currencies_db
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: 1234
+    # zookeeper:
+    #     container_name: zookeeper
+    #     image: zookeeper
+    #     build:
+    #         context: ./zookeeper
     #     volumes:
-    #         - $PWD/mongo-data:/data/db
-    #         - $PWD/mongo-app:/var/www/html
-    #     ports:
-    #         - 27017:27017
+    #         - ./config/zookeeper.properties:/kafka/config/zookeeper.properties
+    # kafka:
+    #     container_name: kafka
+    #     image: bitnami/kafka
+    #     build: 
+    #         context: .
+    #     volumes:
+    #         - ./config/server.properties:/kafka/config/server.properties
+    #         - ./data/kafka/:/tmp/kafka-logs/
+    # kafka-producer:
+    #     container_name: kafka-producer
+    #     image: bitnami/kafka
+    #     build: 
+    #         context: .
+    #     working_dir: /kafka
+    #     entrypoint: /bin/bash
+    #     stdin_open: true
+    #     tty: true
+    # kafka-consumer:
+    #     container_name: kafka-consumer
+    #     image: bitnami/kafka
+    #     build: 
+    #         context: .
+    #     working_dir: /kafka
+    #     entrypoint: /bin/bash
+    #     stdin_open: true
+    #     tty: true
 
     mongodb:
         image: mongo:latest
@@ -74,28 +81,6 @@ services:
             - 27017:27017
         networks:
             - main
-
-
-    # kafka:
-    #     build: /kafka-mq
-    #     image: python-kafka-mq
-    #     ports:
-    #         - "5157:5157"
-    #     networks:
-    #         - main
-
-    # db:
-    #     image: mongo:latest
-    #     hostname: test_mongodb
-    #     environment:
-    #         MONGO_INITDB_DATABASE: currencies_db
-    #         MONGO_INITDB_ROOT_USERNAME: root
-    #         MONGO_INITDB_ROOT_PASSWORD: password
-    #     volumes:
-    #         - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
-    #     ports:
-    #         - 27017:27017
-
 networks:
     main:
         driver: bridge
@@ -103,6 +88,3 @@ volumes:
     mongodbdata:
         external: false
 
-# volumes:
-#     myapp:
-#         external: true
