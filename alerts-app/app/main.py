@@ -1,3 +1,4 @@
+from config import *
 from repository import *
 from alertsmonitor import *
 import requests
@@ -5,10 +6,11 @@ import time
 import json  
 
 DB = 'http://host.docker.internal:8000/update-data/'
-TIME_INTERVAL = 2.0
+TIME_INTERVAL = 5.0
 
+config = Config()
 repository = Repository()
-alerts = AlertsMonitor()
+alerts = AlertsMonitor(config)
 
 
 while True:
