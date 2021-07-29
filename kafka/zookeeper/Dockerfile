@@ -12,7 +12,7 @@ RUN curl "https://apache.mivzakim.net/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSI
     mkdir /kafka && cd /kafka && \
     tar -xvzf /tmp/kafka/kafka.tgz --strip 1
 
-COPY start-zookeeper.sh  /usr/bin
+COPY kafka/zookeeper/start-zookeeper.sh  /usr/bin
 RUN chmod +x  /usr/bin/start-zookeeper.sh
 
 CMD ["start-zookeeper.sh"]

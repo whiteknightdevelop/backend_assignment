@@ -5,7 +5,7 @@ import requests
 import time
 import json  
 
-TIME_INTERVAL = 5.0
+TIME_INTERVAL = 2.0
 
 config = Config()
 repository = Repository()

@@ -3,6 +3,8 @@ import requests
 import json
 import yaml
 
+from pykafka import KafkaClient
+
 class AlertsMonitor:
 
     def __init__(self, config):
@@ -49,5 +51,16 @@ class AlertsMonitor:
 
     def dispatch_alert(self):
         #if list not empty dispatch alert
+        print('dispatch_alert')
+        print(self.alert_list)
         if self.alert_list:
-            print('dispatch_alert')
+            client = KafkaClient(hosts="kafka:9092")
+            print(client)
+            topic = client.topics['my.test']
+            producer = topic.get_sync_producer()
+            producer.produce('test message'.encode('ascii'))
+
+            consumer = topic.get_simple_consumer()
+            for message in consumer:
+                if message is not None:
+                    print(message.value)
