@@ -14,7 +14,20 @@ services:
             - "6379:6379"
         networks:
             - main
-
+    alerts:
+        build: /alerts-app
+        image: python-alerts-app
+        ports:
+            - "6165:6165"
+        networks:
+            - main
+    kafka:
+        build: /kafka-mq
+        image: python-kafka-mq
+        ports:
+            - "5157:5157"
+        networks:
+            - main
     db:
         image: mongo:latest
         hostname: test_mongodb
