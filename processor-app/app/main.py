@@ -1,10 +1,12 @@
+from config import *
 from datafetcher import *
 from repository import *
 import requests
 import time
 import json  
 
-data_fetcher = DataFetcher()
+config = Config()
+data_fetcher = DataFetcher(config)
 repository = Repository()
 
 URL = 'http://host.docker.internal:8000/update-data/'

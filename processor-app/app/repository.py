@@ -14,6 +14,7 @@ class Repository:
         return db
 
     def fetch_db(self):
+        print("dddd")
         db = self.get_db()
         data = db.currencies_db.find()
         currencies = [{"id": item["id"], "name": item["name"]} for item in data]
