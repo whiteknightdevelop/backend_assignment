@@ -1,43 +1,108 @@
 version: "3.9"
 services:
+    # publicapi:
+    #     build: ./api-app
+    #     image: python-api-app
+    #     ports:
+    #         - "8000:8000"
+    #     networks:
+    #         - main
     publicapi:
-        build: /api-app
+        container_name: publicapi
+        build:
+            context: ./
+            dockerfile: ./api-app/Dockerfile
+        # build: ./processor-app
         image: python-api-app
         ports:
             - "8000:8000"
         networks:
             - main
     processor:
-        build: /processor-app
+        container_name: processor
+        build:
+            context: ./
+            dockerfile: ./processor-app/Dockerfile
+        # build: ./processor-app
         image: python-processor-app
         ports:
             - "6379:6379"
         networks:
             - main
+        # volumes:
+        #     - myapp:/config
     alerts:
-        build: /alerts-app
+        container_name: alerts
+        build:
+            context: ./
+            dockerfile: ./alerts-app/Dockerfile
         image: python-alerts-app
         ports:
             - "6165:6165"
         networks:
             - main
-    kafka:
-        build: /kafka-mq
-        image: python-kafka-mq
-        ports:
-            - "5157:5157"
-        networks:
-            - main
-    db:
+
+
+    # db:
+    #     container_name: mongodb
+    #     image: mongo:latest
+    #     hostname: main_mongodb
+    #     environment:
+    #         MONGO_INITDB_DATABASE: currencies_db
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: 1234
+    #     volumes:
+    #         - $PWD/mongo-data:/data/db
+    #         - $PWD/mongo-app:/var/www/html
+    #     ports:
+    #         - 27017:27017
+
+    mongodb:
         image: mongo:latest
-        hostname: test_mongodb
+        container_name: mongodb
+        restart: unless-stopped
+        command: mongod --auth
         environment:
-            MONGO_INITDB_DATABASE: currencies_db
             MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_ROOT_PASSWORD: 1234
+            MONGO_INITDB_DATABASE: currencies_db
+            MONGODB_DATA_DIR: /data/db
+            MONDODB_LOG_DIR: /dev/null
         volumes:
-            - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+            - mongodbdata:/data/db
         ports:
             - 27017:27017
+        networks:
+            - main
+
+
+    # kafka:
+    #     build: /kafka-mq
+    #     image: python-kafka-mq
+    #     ports:
+    #         - "5157:5157"
+    #     networks:
+    #         - main
+
+    # db:
+    #     image: mongo:latest
+    #     hostname: test_mongodb
+    #     environment:
+    #         MONGO_INITDB_DATABASE: currencies_db
+    #         MONGO_INITDB_ROOT_USERNAME: root
+    #         MONGO_INITDB_ROOT_PASSWORD: password
+    #     volumes:
+    #         - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+    #     ports:
+    #         - 27017:27017
+
 networks:
     main:
+        driver: bridge
+volumes:
+    mongodbdata:
+        external: false
+
+# volumes:
+#     myapp:
+#         external: true

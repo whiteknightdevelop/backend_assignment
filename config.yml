@@ -10,4 +10,4 @@ thresholds:
   - 1.19
   - 1
   - 745
-fetch_interval: 5.0
+fetch_interval: 10.0

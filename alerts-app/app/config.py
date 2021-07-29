@@ -2,7 +2,7 @@ import yaml
 
 class Config:
     def __init__(self):
-            config = yaml.safe_load(open("../../config.yml"))
+            config = yaml.safe_load(open("./app/config.yml"))
             self.url_symbols_names = config['url_symbols_names']
             self.symbols_watched = config['symbols_watched']
             self.symbols_thresholds = config['thresholds']

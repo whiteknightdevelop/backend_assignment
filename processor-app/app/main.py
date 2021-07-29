@@ -5,7 +5,8 @@ import requests
 import time
 import json  
 
-API = 'http://host.docker.internal:8000/update-data/'
+# API = 'http://host.docker.internal:8000/update-data/'
+API = 'http://publicapi:8000/update-data/'
 
 config = Config()
 data_fetcher = DataFetcher(config)

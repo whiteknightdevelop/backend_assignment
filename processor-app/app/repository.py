@@ -1,7 +1,8 @@
 from pymongo import MongoClient
 import json
 
-DOMAIN = 'localhost'
+# DOMAIN = 'localhost'
+DOMAIN = 'mongodb'
 PORT = 27017
 
 class Repository:
@@ -27,7 +28,15 @@ class Repository:
         #     authSource='admin')
         # db = client["currencies_db"]
 
-        client = MongoClient(DOMAIN, PORT)
+        client = MongoClient(
+            host = [ str(DOMAIN) + ":" + str(PORT) ],
+            serverSelectionTimeoutMS = 3000, # 3 second timeout
+            username = "root",
+            password = "1234",
+        )
+
+
+        # client = MongoClient(DOMAIN, PORT) // working local
         self.db = client['currencies_db']
 
     def set_collection(self):
