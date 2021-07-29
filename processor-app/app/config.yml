@@ -1,6 +1,6 @@
 url_symbols_names: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json"
 url_symbols_price: "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/eur.json"
 symbols_watched: ils,usd,eur
-fetch_interval: 30.0
+fetch_interval: 5.0
 
 

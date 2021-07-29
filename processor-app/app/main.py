@@ -12,14 +12,12 @@ data_fetcher = DataFetcher(config)
 repository = Repository()
 
 while True:
-    data = repository.fetch_db();
-    x = requests.post(API, json = data).json()
-    print(x)
+    symbols_price = data_fetcher.get_symbols_price()
+    res = requests.post(API, json = symbols_price).json()
+    print(res)
+    repository.update_db(symbols_price)
 
-    # symbols_price = data_fetcher.get_symbols_price()
-    # x = requests.post(URL, json = symbols_price).json()
-    # print(x)
-    time.sleep(data_fetcher.get_fetch_interval)
+    time.sleep(config.get_fetch_interval())
 
 
 

@@ -11,7 +11,6 @@ class Config:
             # self.currencies_symbols_names = {}
             self.watched_currencies = {}
 
-    @property
     def get_fetch_interval(self):
         return self.fetch_interval
 

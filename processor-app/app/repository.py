@@ -6,7 +6,13 @@ PORT = 27017
 
 class Repository:
 
-    def get_db(self):
+    def __init__(self):
+        self.collection = None
+        self.db = None
+        self.set_db()
+        self.set_collection()
+
+    def set_db(self):
         # db = MongoClient(
         # host = DOMAIN + ":" + str(PORT),
         # serverSelectionTimeoutMS = 3000, # 3 second timeout
@@ -22,21 +28,24 @@ class Repository:
         # db = client["currencies_db"]
 
         client = MongoClient(DOMAIN, PORT)
-        db = client['currencies_db']
-        collection = db['currencies']
-        collection.drop()
-        return db
+        self.db = client['currencies_db']
 
-    def fetch_db(self):
-        print("fetch_db")
-        db = self.get_db()
-        collection = db['currencies']
+    def set_collection(self):
+        self.collection = self.db['currencies']
 
-        data = {'id': 'j5555', 'name':'44'}
-        collection.insert_one(data)
+    def drop_old_collection(self):
+        self.collection.drop()
 
-        ans = [{"id": item["id"], "name": item["name"]} for item in collection.find()]
-        print(ans)
-        return ans
+    def update_db(self, symbols_price):
+        print('update_db')
+        print(symbols_price)
+        self.drop_old_collection()
+        # json_object = json.dumps(symbols_price)
+        self.collection.insert_one(symbols_price)
+        symbols_price.pop('_id')
+
+    # def fetch_db(self):
+    #     currencies = [{"id": item["id"], "name": item["name"]} for item in self.collection.find()]
+    #     return currencies
     
 
