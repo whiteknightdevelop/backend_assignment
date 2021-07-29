@@ -1,0 +1,35 @@
+FROM openjdk:11.0.10-jre-buster
+
+RUN apt-get update && \
+    apt-get install -y curl
+         
+ENV KAFKA_VERSION 2.8.0
+ENV SCALA_VERSION 2.13 
+
+RUN  mkdir /tmp/kafka && \
+    # curl "https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
+    curl "https://apache.mivzakim.net/kafka/${KAFKA_VERSION}/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
+    -o /tmp/kafka/kafka.tgz && \
+    mkdir /kafka && cd /kafka && \
+    tar -xvzf /tmp/kafka/kafka.tgz --strip 1
+
+COPY start-kafka.sh  /usr/bin
+RUN chmod +x  /usr/bin/start-kafka.sh
+
+
+
+CMD ["start-kafka.sh"]
+
+
+# FROM python:3
+
+# WORKDIR /app
+
+# COPY kafka-mq/requirements.txt ./
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# COPY kafka-mq/app ./app
+# RUN mkdir /config
+# COPY ../../config.yml ./app
+# VOLUME /config
+# CMD [ "python", "app/main.py" ]
