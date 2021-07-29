@@ -37,10 +37,7 @@ class Repository:
         self.collection.drop()
 
     def update_db(self, symbols_price):
-        print('update_db')
-        print(symbols_price)
         self.drop_old_collection()
-        # json_object = json.dumps(symbols_price)
         self.collection.insert_one(symbols_price)
         symbols_price.pop('_id')
 
