@@ -50,13 +50,13 @@ class AlertsMonitor:
         return req[symbol]
 
     def dispatch_alert(self):
-        #if list not empty dispatch alert
         print('dispatch_alert')
         print(self.alert_list)
+        #if list not empty dispatch alert
         if self.alert_list:
             client = KafkaClient(hosts="kafka:9092")
-            print(client)
-            topic = client.topics['my.test']
+            print(client.topics)
+            topic = client.topics['Topic1']
             producer = topic.get_sync_producer()
             producer.produce('test message'.encode('ascii'))
 

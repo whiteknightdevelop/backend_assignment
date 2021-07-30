@@ -15,5 +15,14 @@ RUN  mkdir /tmp/kafka && \
 COPY kafka/start-kafka.sh  /usr/bin
 RUN chmod +x  /usr/bin/start-kafka.sh
 
+
+# Not Working!!!!
+# COPY kafka/kafka-topics.sh  /usr/bin
+# RUN chmod +x  /usr/bin/kafka-topics.sh --create \
+#     --zookeeper localhost:2181 \
+#     --replication-factor 1 \
+#     --partitions 1 \
+#     --topic test
+
 CMD ["start-kafka.sh"]
 

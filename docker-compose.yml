@@ -16,40 +16,39 @@ services:
         ports:
             - 27017:27017
         networks:
-            - main
+            - app-tier
+
     zookeeper:
         container_name: zookeeper
         image: bitnami/zookeeper:latest
         build:
             context: ./
             dockerfile: ./kafka/zookeeper/Dockerfile
-        # build:
-        #     context: ./zookeeper
+        environment:
+            - ZOOKEEPER_CLIENT_PORT=2181
         volumes:
             - ./kafka/config/zookeeper.properties:/kafka/config/zookeeper.properties
-            # - ~/kafka/data/zookeeper_data:/var/lib/zookeeper/data
-            # - ~/kafka/data/zookeeper_log:/var/lib/zookeeper/log
+            - ~/kafka/data/zookeeper_log:/var/lib/zookeeper/log
         ports:
             - "2181:2181"
         networks:
-            - main
+            - app-tier
+
     kafka:
         container_name: kafka
         image: bitnami/kafka:latest
         build:
             context: ./
             dockerfile: ./kafka/Dockerfile
-        # build: 
-        #     context: .
         volumes:
             - ./kafka/config/server.properties:/kafka/config/server.properties
-            # - ./data/kafka/:/tmp/kafka-logs/
         ports:
             - "9092:9092"
         networks:
-            - main
+            - app-tier
         depends_on:
             - zookeeper
+
     publicapi:
         container_name: publicapi
         build:
@@ -59,7 +58,8 @@ services:
         ports:
             - "8000:8000"
         networks:
-            - main
+            - app-tier
+
     processor:
         container_name: processor
         build:
@@ -69,10 +69,11 @@ services:
         ports:
             - "6379:6379"
         networks:
-            - main
+            - app-tier
         depends_on:
             - publicapi
             - mongodb
+
     alerts:
         container_name: alerts
         build:
@@ -82,14 +83,17 @@ services:
         ports:
             - "6165:6165"
         networks:
-            - main
+            - app-tier
         depends_on:
             - mongodb
             - zookeeper
             - kafka
+        restart: on-failure
+        
 networks:
-    main:
-        driver: bridge
+    app-tier:
+      driver: bridge
+
 volumes:
     mongodbdata:
         external: false

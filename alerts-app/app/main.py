@@ -12,6 +12,7 @@ repository = Repository()
 alerts = AlertsMonitor(config)
 
 while True:
+    print('starting alerts')
     db_data = repository.fetch_db()
     alerts.process(db_data)
     time.sleep(TIME_INTERVAL)
